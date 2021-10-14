@@ -7,7 +7,7 @@ const users = require('./data/users.json');
 const server = express();
 server.use(cors());
 server.use(express.json());
-
+server.set('view engine', 'ejs');
 // init express aplication
 const serverPort = 4000;
 server.listen(serverPort, () => {
@@ -38,6 +38,10 @@ server.post('/login', (req, res) => {
     response.errorMessage = ' id_de_la_usuaria_encontrada';
   }
   res.json(response);
+});
+
+server.get('/movie/:movieId', (req, res) => {
+  console.log(req.params.movieId);
 });
 
 const staticServerPathWeb = './public'; // En esta carpeta ponemos los ficheros estáticos de el proyecto compleo
