@@ -26,8 +26,11 @@ server.get('/movies', (req, res) => {
   // const filteredMovies = movies.filter((movie) => {
   //   movie.gender === genderFilterParam.gender;
   // });
+  const query = db.prepare('SELECT * FROM movies order by name asc');
+  const foundFilm = query.all();
 
-  res.json(movies);
+  console.log(foundFilm);
+  res.json({ success: true, movies: foundFilm });
 });
 
 server.post('/login', (req, res) => {
