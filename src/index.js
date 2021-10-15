@@ -2,6 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const movies = require('./data/movies.json');
 const users = require('./data/users.json');
+const DataBase = require('better-sqlite3');
+
+const db = new DataBase('./src/data/database.db', {
+  verbose: console.log,
+});
 
 // create and config server
 const server = express();
