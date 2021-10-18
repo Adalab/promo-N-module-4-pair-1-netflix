@@ -29,7 +29,7 @@ server.get('/movies', (req, res) => {
   const query = db.prepare('SELECT * FROM movies order by name asc');
   const foundFilm = query.all();
 
-  console.log(foundFilm);
+  //console.log(foundFilm);
   res.json({ success: true, movies: foundFilm });
 });
 
@@ -48,8 +48,24 @@ server.post('/login', (req, res) => {
   res.json(response);
 });
 
-server.get('/movie/:movieId', (req, res) => {
-  console.log(req.params.movieId);
+// server.get('/movie/:movieId', (req, res) => {
+//   console.log(req.params.movieId);
+// });
+
+server.post('/signup', (req, res) => {
+  const query = db.prepare(
+    'SELECT * FROM users WHERE email= ? AND password = ?'
+  );
+  const foundUser = query.get(req.body.email, req.body.password);
+  console.log(foundUser);
+
+  if (foundUser === undefined) {
+    //si la usuario no existe devuelvo un error
+    res.json({ error: 'No encontrado' });
+  } else {
+    //si la usuario existe  devuelvo
+    res.json({ userId: foundUser.id });
+  }
 });
 
 const staticServerPathWeb = './public'; // En esta carpeta ponemos los ficheros estáticos de el proyecto compleo
