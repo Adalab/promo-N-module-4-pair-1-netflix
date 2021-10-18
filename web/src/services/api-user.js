@@ -30,13 +30,9 @@ const sendSingUpToApi = (data) => {
     },
   })
     .then((response) => response.json())
-    .then((response) => {
-      // CAMBIA EL CONTENIDO DE ESTE THEN PARA GESTIONAR LA RESPUESTA DEL SERVIDOR Y RETORNAR AL COMPONENTE APP LO QUE NECESITA
-      console.log(response);
-      return {
-        success: false,
-        errorMessage: 'Usuario ya existente',
-      };
+    .then((data) => {
+      console.log(data);
+      return data;
     });
 };
 

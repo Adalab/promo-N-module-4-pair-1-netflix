@@ -48,9 +48,9 @@ server.post('/login', (req, res) => {
   res.json(response);
 });
 
-// server.get('/movie/:movieId', (req, res) => {
-//   console.log(req.params.movieId);
-// });
+server.get('/movie/:movieId', (req, res) => {
+  console.log(req.params.movieId);
+});
 
 server.post('/signup', (req, res) => {
   const query = db.prepare(
@@ -61,10 +61,19 @@ server.post('/signup', (req, res) => {
 
   if (foundUser === undefined) {
     //si la usuario no existe devuelvo un error
-    res.json({ error: 'No encontrado' });
+    const queryInsert = db.prepare(
+      'INSERT INTO users(email, password) values (?,?)'
+    );
+    const userInsert = queryInsert.run(req.body.email, req.body.password);
+
+    res.json({ success: true, userId: 'nuevo-id-añadido' });
   } else {
     //si la usuario existe  devuelvo
-    res.json({ userId: foundUser.id });
+    res.json({
+      success: false,
+      errorMessage: 'usuario ya existente, no lo incluyas mas',
+      userId: foundUser.id,
+    });
   }
 });
 
