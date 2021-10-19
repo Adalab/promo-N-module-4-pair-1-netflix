@@ -91,8 +91,11 @@ server.post('/signup', (req, res) => {
   }
 });
 
-// peliculas favoritas getUserMoviesFromApi (api-user)
-server.post('/my-movies', (req, res) => {});
+// peliculas favoritas getUserMoviesFromApi (api-user). Nos mandan desde Front idUser y hay que buscar en rel_movies_user el movieId relacionado.
+
+// server.post('/my-movies', (req, res) => {
+//   const queryMovies = db.prepare('SELECT * FROM');
+// });
 
 const staticServerPathWeb = './public'; // En esta carpeta ponemos los ficheros estáticos del proyecto completo de react
 server.use(express.static(staticServerPathWeb));
