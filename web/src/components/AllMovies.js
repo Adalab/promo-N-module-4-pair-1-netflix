@@ -1,6 +1,6 @@
-import React from "react";
-import MoviesList from "./MoviesList";
-import "../stylesheets/AppMovies.scss";
+import React from 'react';
+import MoviesList from './MoviesList';
+import '../stylesheets/AppMovies.scss';
 
 const AllMovies = (props) => {
   const handleOptions = (ev) => {
@@ -11,35 +11,35 @@ const AllMovies = (props) => {
   };
 
   return (
-    <section className="border--medium">
-      <h1 className="title--medium">
+    <section className='border--medium'>
+      <h1 className='title--medium'>
         Estas son todas las películas de nuestro catálogo
       </h1>
-      <form className="movies__filters">
-        <div className="movies__filters--gender">
-          <label htmlFor="filterGender">Filtrar por género</label>
+      <form className='movies__filters'>
+        <div className='movies__filters--gender'>
+          <label htmlFor='filterGender'>Filtrar por género</label>
           <select
-            className="form__input-text"
-            id="filterGender"
-            name="gender"
+            className='form__input-text'
+            id='filterGender'
+            name='gender'
             value={props.allMoviesOptionGender}
             onChange={handleOptions}
           >
-            <option value="">Todas</option>
-            <option value="Drama">Drama</option>
-            <option value="Comedia">Comedia</option>
+            <option value='All'>Todas</option>
+            <option value='Drama'>Drama</option>
+            <option value='Comedia'>Comedia</option>
           </select>
         </div>
 
-        <div className="movies__filters--sort">
+        <div className='movies__filters--sort'>
           <label>
             Ordernar: A-Z
             <input
-              className="movies__radio"
-              type="radio"
-              name="sort"
-              value="asc"
-              checked={props.allMoviesOptionSort === "asc"}
+              className='movies__radio'
+              type='radio'
+              name='sort'
+              value='asc'
+              checked={props.allMoviesOptionSort === 'asc'}
               onChange={handleOptions}
             />
           </label>
@@ -47,11 +47,11 @@ const AllMovies = (props) => {
           <label>
             Z-A
             <input
-              className="movies__radio"
-              type="radio"
-              name="sort"
-              value="desc"
-              checked={props.allMoviesOptionSort === "desc"}
+              className='movies__radio'
+              type='radio'
+              name='sort'
+              value='desc'
+              checked={props.allMoviesOptionSort === 'desc'}
               onChange={handleOptions}
             />
           </label>

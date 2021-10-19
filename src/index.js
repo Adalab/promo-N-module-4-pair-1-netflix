@@ -21,16 +21,21 @@ server.listen(serverPort, () => {
 
 server.get('/movies', (req, res) => {
   const genderFilterParam = req.query.gender;
-  // console.log(genderFilterParam);
-  // console.log(movies);
-  // const filteredMovies = movies.filter((movie) => {
-  //   movie.gender === genderFilterParam.gender;
-  // });
-  const query = db.prepare('SELECT * FROM movies order by name asc');
-  const foundFilm = query.all();
+  console.log(genderFilterParam);
+  const sortFilter = req.query.sort;
 
-  //console.log(foundFilm);
-  res.json({ success: true, movies: foundFilm });
+  if (genderFilterParam !== 'All') {
+    const query = db.prepare('SELECT * FROM movies WHERE gender =? ');
+    const foundFilm = query.all(genderFilterParam);
+
+    //console.log(foundFilm);
+    res.json({ success: true, movies: foundFilm });
+  } else {
+    const queryAll = db.prepare('SELECT*FROM movies');
+    const allMovies = queryAll.all();
+
+    res.json({ success: true, movies: allMovies });
+  }
 });
 
 server.post('/login', (req, res) => {
