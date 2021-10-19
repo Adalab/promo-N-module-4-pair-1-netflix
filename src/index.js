@@ -43,13 +43,18 @@ server.post('/login', (req, res) => {
     response.errorMessage = ' Usuaria/o no encontrado';
   } else {
     response.success = true;
-    response.errorMessage = ' id_de_la_usuaria_encontrada';
+    response.userId = userFind.id;
   }
   res.json(response);
 });
 
 server.get('/movie/:movieId', (req, res) => {
   console.log(req.params.movieId);
+
+  // renderizamos con el motor de plantillas
+  const query = db.prepare('SELECT * FROM movies WHERE id=?');
+  const foundMovie = query.get(req.params.movieId);
+  res.render('films', foundMovie);
 });
 
 server.post('/signup', (req, res) => {
@@ -76,6 +81,9 @@ server.post('/signup', (req, res) => {
     });
   }
 });
+
+// peliculas favoritas getUserMoviesFromApi (api-user)
+server.post('/my-movies', (req, res) => {});
 
 const staticServerPathWeb = './public'; // En esta carpeta ponemos los ficheros estáticos de el proyecto compleo
 server.use(express.static(staticServerPathWeb));
