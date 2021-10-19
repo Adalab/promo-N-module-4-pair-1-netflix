@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const movies = require('./data/movies.json');
+//const movies = require('./data/movies.json');
 const users = require('./data/users.json');
 const DataBase = require('better-sqlite3');
 
@@ -22,16 +22,20 @@ server.listen(serverPort, () => {
 server.get('/movies', (req, res) => {
   const genderFilterParam = req.query.gender;
   console.log(genderFilterParam);
-  const sortFilter = req.query.sort;
+  // const sortFilter = req.query.sort;
+  // console.log(sortFilter);
+  // el sortFilter recibe undefined
 
   if (genderFilterParam !== 'All') {
-    const query = db.prepare('SELECT * FROM movies WHERE gender =? ');
+    const query = db.prepare(
+      `SELECT * FROM movies WHERE gender =? ORDER BY name asc`
+    );
     const foundFilm = query.all(genderFilterParam);
 
     //console.log(foundFilm);
     res.json({ success: true, movies: foundFilm });
   } else {
-    const queryAll = db.prepare('SELECT*FROM movies');
+    const queryAll = db.prepare(`SELECT*FROM movies ORDER BY name asc`);
     const allMovies = queryAll.all();
 
     res.json({ success: true, movies: allMovies });
@@ -90,7 +94,7 @@ server.post('/signup', (req, res) => {
 // peliculas favoritas getUserMoviesFromApi (api-user)
 server.post('/my-movies', (req, res) => {});
 
-const staticServerPathWeb = './public'; // En esta carpeta ponemos los ficheros estáticos de el proyecto compleo
+const staticServerPathWeb = './public'; // En esta carpeta ponemos los ficheros estáticos del proyecto completo de react
 server.use(express.static(staticServerPathWeb));
 
 const staticServerPathWeb2 = './src/public-movies-images'; // En esta carpeta ponemos los ficheros estáticos de las imagenes

@@ -1,11 +1,14 @@
 // login
-//Cris: añado props que es el objeto  sta mandando el parametro desde App.js (params))
-const getMoviesFromApi = (params) => {
+
+const getMoviesFromApi = (props) => {
   console.log('Se están pidiendo las películas de la app');
-  console.log(params);
+  console.log(props.sort);
   // CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
   // '//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/empty.json'
-  return fetch(`//localhost:4000/movies?gender=${params.gender}`, {
+
+  //preguntar como podemos pasar sort en paramns... &&sort=${props.sort}
+
+  return fetch(`//localhost:4000/movies?gender=${props.gender}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
