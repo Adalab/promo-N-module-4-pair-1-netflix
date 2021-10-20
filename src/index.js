@@ -22,20 +22,21 @@ server.listen(serverPort, () => {
 server.get('/movies', (req, res) => {
   const genderFilterParam = req.query.gender;
   console.log(genderFilterParam);
-  // const sortFilter = req.query.sort;
-  // console.log(sortFilter);
-  // el sortFilter recibe undefined
+  const sortFilter = req.query.sort;
+  console.log(sortFilter);
 
   if (genderFilterParam !== 'All') {
     const query = db.prepare(
-      `SELECT * FROM movies WHERE gender =? ORDER BY name asc`
+      `SELECT * FROM movies WHERE gender =? ORDER BY name ${sortFilter}`
     );
     const foundFilm = query.all(genderFilterParam);
 
-    //console.log(foundFilm);
+    console.log(foundFilm);
     res.json({ success: true, movies: foundFilm });
   } else {
-    const queryAll = db.prepare(`SELECT*FROM movies ORDER BY name asc`);
+    const queryAll = db.prepare(
+      `SELECT*FROM movies ORDER BY name ${sortFilter}`
+    );
     const allMovies = queryAll.all();
 
     res.json({ success: true, movies: allMovies });
@@ -67,10 +68,8 @@ server.get('/movie/:movieId', (req, res) => {
 });
 
 server.post('/signup', (req, res) => {
-  const query = db.prepare(
-    'SELECT * FROM users WHERE email= ? AND password = ?'
-  );
-  const foundUser = query.get(req.body.email, req.body.password);
+  const query = db.prepare('SELECT * FROM users WHERE email= ? ');
+  const foundUser = query.get(req.body.email);
   console.log(foundUser);
 
   if (foundUser === undefined) {

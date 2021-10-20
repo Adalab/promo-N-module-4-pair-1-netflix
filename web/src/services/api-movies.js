@@ -6,14 +6,17 @@ const getMoviesFromApi = (props) => {
   // CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
   // '//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/empty.json'
 
-  //preguntar como podemos pasar sort en paramns... &&sort=${props.sort}
+  //preguntar como podemos pasar sort en paramns... &sort=${props.sort}
 
-  return fetch(`//localhost:4000/movies?gender=${props.gender}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  return fetch(
+    `//localhost:4000/movies?gender=${props.gender}&sort=${props.sort}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
